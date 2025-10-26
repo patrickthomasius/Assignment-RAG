@@ -36,6 +36,7 @@ The resulting documents of the similarity search are then used as context and pa
 A Fast-API was set up to ingest dand query endpoints. 
 Currently, because of time contraints on this project, no explicit preprocessing has been implemented. This will reduce the quality of the results. The project could be further opimized by adding data cleaning, normalization and tokenization.
 Furthermore, the text could be transformed to not include upper/lowercase, punctuation or stopwords. 
+The dummy textfiles were created using chat GPT, while one File was created manually that contains the answer to the query ("The capitol of France is Paris") to test core functionality of the script. 
 
 
 AI was used as coding assistance in this Project.
