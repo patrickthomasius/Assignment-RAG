@@ -13,7 +13,7 @@ docs = [f.read_text() for f in folder.glob("*.txt")]
 
 
 # Wait until the API is ready
-for _ in range(20):  # try 20 times
+for _ in range(50):  # try 20 times
     try:
         resp = requests.get(f"{URL}/docs")  # or some lightweight endpoint
         if resp.status_code == 200:

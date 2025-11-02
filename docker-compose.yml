@@ -13,6 +13,7 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
 
+
   rag_api:
     build:
       context: .
@@ -31,14 +32,13 @@ services:
       - "8000:8000"
     volumes:
       - ./dummy_docs:/app/dummy_docs
-
   test_ingest:
     build:
       context: .
       dockerfile: Dockerfile
     container_name: test_ingest
     # give the API a few seconds to start up, then run your test script
-    command: bash -c "sleep 10 && python test_ingest_query.py"
+    command: bash -c "sleep 20 && python test_ingest_query.py"
     depends_on:
       - rag_api
     environment:
@@ -50,6 +50,7 @@ services:
     volumes:
       - ./test_ingest_query.py:/app/test_ingest_query.py
       - ./dummy_docs:/app/dummy_docs
+
 
 volumes:
   pgdata:
