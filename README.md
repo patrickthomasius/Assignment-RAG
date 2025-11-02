@@ -72,19 +72,15 @@ For other uses, the endpoints are /ingest and /query.
 Currently the Project is using lightweight LLMs and Dummy Files. One File contains a clear answer to the example query to demonstrate basic functionality. Different Queries can be chosen and alternative files added to the dummyfile folder. For better functionality, more prepocessing should be added and a bigger model should be chosen
 
 
-### Setup this project using docker
-
-The project contains a Dockerfile, compose.yml and the corresponding environment.yml that are needed to create a dockerfile. As of right now, the resulting image produces an error when trying to reach the database. It was not possible to debug or solve the issue because of the time constraint on the assignment. 
 
 ### My approach
-PostgreSQL is used to store vector embeddings. The files are in txt. format
-A Sentence Transformer is used to calculate embeddings for the documents to perform a similarity search using FAISS. These emebeddings are stored in the PostgreSQL DB.
-The sentence transformer is also used to generate embeddings for the queries.
+PostgreSQL is used to store vector embeddings. The files are in txt. format. The files were generated using chatGPT.
+A Sentence Transformer all-MiniLM-L6-v2 is used to calculate embeddings. A FAISS index is calculated for these embeddings which is later used to perform a quick similarity search. The index is also stored in a Postgresql Database. 
+The sentence transformer is also used to generate embeddings for the queries.Which then in turn are used as inputs for the similarity search. 
 The resulting documents of the similarity search are then used as context and passed along with the query to generate a response using a LLM. For this demonstration, Flan-T5 was used.
-A Fast-API was set up to ingest dand query endpoints. 
-Currently, because of time contraints on this project, no explicit preprocessing has been implemented. This will reduce the quality of the results. The project could be further opimized by adding data cleaning, normalization and tokenization.
-Furthermore, the text could be transformed to not include upper/lowercase, punctuation or stopwords. 
-The dummy textfiles were created using chat GPT, while one File was created manually that contains the answer to the query ("The capitol of France is Paris") to test core functionality of the script. 
+A Fast-API was set up with ingest and query endpoints to store documents and run queries. 
+Because this application uses both SentenceTransformer and an LLM for question answering, no pre-processing besides tokenization was performed. 
+One File was created manually that contains the answer to the query ("The capitol of France is Paris") to test core functionality of the script. With more complex questions the retrieved documents are typically suitable, but the answer to the question is sometimes not exact. A possible explanation for this is that a bigger or more performant model could outpower Flan-T5, but for the demonstration Flan-T5 was chosen for efficiency. 
 
 
 AI was used as coding assistance in this Project.
