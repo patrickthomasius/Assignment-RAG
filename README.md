@@ -16,7 +16,7 @@ To build and run the container open a shell inside the folder and run
 
 afterwards run
 
-`docker-compose up ` to run the container. This starts the postgres service, runs the api, then waits a few seconds and then ingests a test query. The outputs are given in the terminal where these lines are executed. 
+`docker-compose up ` to run the container. This starts the postgres service, runs the api, then waits a few seconds and then ingests a test query. The outputs are given in the terminal where these lines are executed (therefore, dont add a -d flag). 
 
 
 
