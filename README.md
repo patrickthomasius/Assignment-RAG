@@ -1,5 +1,25 @@
 ## Readme
 
+### How to setup:
+Clone this repository:
+
+```bash
+git clone https://github.com//patrickthomasius/Assignment-RAG.git
+cd Assignment-RAG
+```
+### Setup this project with Docker (recommended)
+to replicate the runtime, a Dockerfile and a docker-compose file were included in this project.
+
+To build and run the container open a shell inside the folder and run
+
+`docker build .` to setup the docker image
+
+afterwards run
+
+`docker-compose up ` to run the container. This starts the postgres service, runs the api, then waits a few seconds and then ingests a test query. The outputs are given in the terminal where these lines are executed. 
+
+
+
 ### Setup this project (without Docker)
 
 1. Create Conda Environment:
