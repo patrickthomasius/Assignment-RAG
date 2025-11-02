@@ -14,6 +14,8 @@ from psycopg import sql
 
 #import psycopg2
 #from psycopg2.extras import execute_values
+# TODO check SKLEARN for pipelines ... 
+
 
 import uvicorn
 from dotenv import load_dotenv
@@ -21,7 +23,7 @@ from dotenv import load_dotenv
 load_dotenv()
 POSTGRES_USER = "postgres"
 POSTGRES_PASSWORD = "start"
-POSTGRES_HOST = "localhost"
+POSTGRES_HOST = "postgres"
 POSTGRES_PORT = 5432
 POSTGRES_DB = "postgres"
 # -----------------------------
@@ -34,17 +36,15 @@ DB_PARAMS = {
     "host": os.getenv("PG_HOST", "localhost"),
     "port": os.getenv("PG_PORT", 5432)
 }
+print("Connecting to:", os.getenv("POSTGRES_HOST"))
 
 conn = psycopg.connect(
-    dbname="postgres",  # connect to an existing db to issue the CREATE DATABASE command
-    user="postgres",
-    password="start",
-    host="localhost",
+    dbname=os.getenv("POSTGRES_DB", "postgres"),
+    user=os.getenv("POSTGRES_USER", "postgres"),
+    password=os.getenv("POSTGRES_PASSWORD", "start"),
+    host=os.getenv("POSTGRES_HOST", "postgres"),  #
     port="5432",
-    client_encoding=""
-
 )
-
 
 
 
@@ -109,6 +109,8 @@ if rows:
 # -----------------------------
 # 5. LLM model (Flan-T5 small)
 # -----------------------------
+
+#TODO switch with API 
 LLM_MODEL_NAME = "google/flan-t5-small"
 tokenizer = AutoTokenizer.from_pretrained(LLM_MODEL_NAME)
 llm_model = AutoModelForSeq2SeqLM.from_pretrained(LLM_MODEL_NAME)
@@ -123,7 +125,7 @@ def generate_answer(query: str, context: str, max_length=200):
 # -----------------------------
 # 6. FastAPI app
 # -----------------------------
-app = FastAPI(title="🌸 RAG with LLM API 🌸")
+app = FastAPI(title="RAG with LLM API")
 
 class IngestRequest(BaseModel):
     documents: list[str]

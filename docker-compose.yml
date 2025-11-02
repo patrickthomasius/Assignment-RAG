@@ -18,6 +18,7 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: rag_api
+    command: bash -c "source activate rag_env && uvicorn rag_postgres_llm:app --host 0.0.0.0 --port 8000"
     depends_on:
       - postgres
     environment:
@@ -31,5 +32,26 @@ services:
     volumes:
       - ./dummy_docs:/app/dummy_docs
 
+  test_ingest:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: test_ingest
+    # give the API a few seconds to start up, then run your test script
+    command: bash -c "sleep 10 && python test_ingest_query.py"
+    depends_on:
+      - rag_api
+    environment:
+      PG_USER: postgres
+      PG_PASSWORD: start
+      PG_HOST: postgres
+      PG_PORT: 5432
+      PG_DB: vectors
+    volumes:
+      - ./test_ingest_query.py:/app/test_ingest_query.py
+      - ./dummy_docs:/app/dummy_docs
+
 volumes:
   pgdata:
+
+
