@@ -30,6 +30,24 @@ This project uses the following ports:
 the project is currently specified to use a cuda 12.1 runtime. 
 You need a driver version ≥ 525.60.13 for Linux, and for Windows x86_64 you need ≥ 527.41 to guarantee compatibility with CUDA 12.x. 
 If it is not possible to run with these drivers, the base image can be adjusted in the dockerfile. However this project was only tested with the specified Cuda Version and up-to-date drivers.
+
+
+#### API
+the api has /query and /ingest endpoints. However, to test new documents and queries, also the test_ingest_query.py script can be easily modified. New documents can simply be added as txt files in the "dummy_docs" folder.
+If you wish to directly utilize the api, requests can be send in the following format
+
+`curl -X POST http://localhost:8000/query \
+     -H "Content-Type: application/json" \
+     -d '{"query": "Where is the Eiffel Tower located?", "top_k": 2}'
+`
+
+`
+curl -X POST http://localhost:8000/ingest \
+     -H "Content-Type: application/json" \
+     -d '{"documents": ["The Eiffel Tower is located in Paris.", "Berlin is the capital of Germany."]}'
+`
+
+
 ### Setup this project (without Docker)
 
 1. Create Conda Environment:
