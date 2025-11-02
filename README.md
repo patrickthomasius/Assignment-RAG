@@ -36,14 +36,14 @@ If it is not possible to run with these drivers, the base image can be adjusted 
 the api has /query and /ingest endpoints. However, to test new documents and queries, also the test_ingest_query.py script can be easily modified. New documents can simply be added as txt files in the "dummy_docs" folder.
 If you wish to directly utilize the api, requests can be send in the following format
 
-`curl -X POST http://localhost:8000/query \
-     -H "Content-Type: application/json" \
+`curl -X POST http://localhost:8000/query
+     -H "Content-Type: application/json"
      -d '{"query": "Where is the Eiffel Tower located?", "top_k": 2}'
 `
 
 `
-curl -X POST http://localhost:8000/ingest \
-     -H "Content-Type: application/json" \
+curl -X POST http://localhost:8000/ingest
+     -H "Content-Type: application/json"
      -d '{"documents": ["The Eiffel Tower is located in Paris.", "Berlin is the capital of Germany."]}'
 `
 
