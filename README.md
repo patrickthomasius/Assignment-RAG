@@ -17,9 +17,19 @@ To build and run the container open a shell inside the folder and run
 afterwards run
 
 `docker-compose up ` to run the container. This starts the postgres service, runs the api, then waits a few seconds and then ingests a test query. The outputs are given in the terminal where these lines are executed (therefore, dont add a -d flag). 
+The waiting time and set amount of retries should be enough to make sure that the api is running when queries are send. If the ingest script still fails, it can be worked around by restarting the service manually from bash or inside docker desktop. 
 
 
+#### Ports
+This project uses the following ports:
 
+- **5432** – PostgreSQL database
+- **8000** – Fast API
+
+#### Cuda compatibility
+the project is currently specified to use a cuda 12.1 runtime. 
+You need a driver version ≥ 525.60.13 for Linux, and for Windows x86_64 you need ≥ 527.41 to guarantee compatibility with CUDA 12.x. 
+If it is not possible to run with these drivers, the base image can be adjusted in the dockerfile. However this project was only tested with the specified Cuda Version and up-to-date drivers.
 ### Setup this project (without Docker)
 
 1. Create Conda Environment:
